@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ChevronDown, ChevronRight, ChevronUp, FileMenu, FileText, MsgCircle, MsgSquare, OptionIcon, ShuffleIcon, VoiceMemo } from "../components/Svg";
 import { values } from "lodash";
+import { Editor } from '@tinymce/tinymce-react';
 
 const MenuData = {
     '/001': {
@@ -172,7 +173,7 @@ const MenuBar = () => {
         setTreeItem({ ...treeItems });
     }
     return (
-        <div className="w-[20rem] bg-[#161616] h-[calc(100vh-112px)] relative select-none">
+        <div className="w-[20rem] bg-[#161616] h-[calc(100vh-112px)] relative select-none ">
             <div className="flex flex-col items-start pl-3 pt-3 pr-2 pb-3 border-b border-gray-600">
                 <label className="flex flex-row justify-center items-center gap-4 px-1 py-2">
                     <FileMenu />
@@ -185,7 +186,7 @@ const MenuBar = () => {
                     <p className="text-sm text-white">Title Page</p>
                 </label>
             </div>
-            <div className="flex flex-col pl-2 pr-2 w-full" >
+            <div className="flex flex-col pl-2 pr-2 w-full max-h-[calc(100vh-270px)] overflow-y-auto" >
                 {
                     getRootNodes(treeItem).map((node, index) => (
                         <RenderTree node={node} getChildNodes={getChildNodes} onToggle={onToggle} key={index} />
@@ -208,12 +209,34 @@ const MenuBar = () => {
 }
 
 const EditorSection = () => {
+    const editorRef = useRef(null);
+    const log = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent());
+        }
+    };
     return (
-        <div >
-
-        </div>
-    )
-
+        <>
+            <Editor
+                onInit={(evt, editor) => editorRef.current = editor}
+                init={{
+                    height: 500,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic backcolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+            />
+            <button onClick={log}>Log editor content</button>
+        </>
+    );
 }
 
 const ToolBar = () => {
