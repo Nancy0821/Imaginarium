@@ -24,6 +24,20 @@ const MainMenu = [
   },
 ];
 
+const WorkSpaceMenu = [
+  {
+    name: "John Wick Chapter 4",
+    active: true,
+  },
+  {
+    name: "Apple Trees",
+    active: false,
+  },
+  {
+    name: "Young Katyusha",
+    active: false,
+  },
+];
 export default function Navbar(props) {
   const location = useLocation();
   const { setIsAuthenticated } = React.useContext(AuthContext);
@@ -79,12 +93,18 @@ export default function Navbar(props) {
     return null;
   } else {
     return (
-      <div className="w-full h-14 bg-[#161616]">
+      <div className="w-full h-14 bg-[#161616] select-none">
         <div className="bg-[#161616] p-0 min-h-0 flex flex-row w-full items-center">
-          <div className="w-14 h-14 bg-[#0E0E0E]">
+          <div className="tabs h-14 bg-[#161616] flex w-full">
             {MainMenu.map((menu, index) => (
               <MainMenuItem icon={menu.icon} key={index} />
             ))}
+            {
+              location.pathname === "/workspace" ?
+                WorkSpaceMenu.map((menu, index) => (
+                  <WorkSpaceItem name={menu.name} active={menu.active} key={index} />
+                )) : ""
+            }
           </div>
 
           <div className="w-full items-center flex justify-end">
@@ -721,3 +741,17 @@ export const MainMenuItem = (props) => {
     </div>
   );
 };
+
+export const WorkSpaceItem = (props) => {
+  const tabClass = `tab flex text-white p-4 h-full hover:cursor-pointer ` + (props.active ? "bg-[#0E0E0E]" : "bg-[#161616]");
+
+  return (
+    <div className={tabClass} >
+      {props.name}
+      {
+        props.active &&
+        <div className="w-4 h-4 rounded-md hover:bg-slate-700 flex items-center justify-center ml-2">&times;</div>
+      }
+    </div>
+  )
+}

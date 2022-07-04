@@ -651,7 +651,7 @@ export const WorkSpaceNavbar = () => {
   const [checkedShowFinish, setCheckedShowFinsh] = React.useState(false);
   const [projectType, setProjectType] = React.useState(1);
   return (
-    <div className="flex w-full h-14 bg-neutral-840">
+    <div className="flex w-full h-14 bg-neutral-840 select-none">
       <MainSubNavbar />
       <div className="w-full flex items-center justify-between">
         <div
