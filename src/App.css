@@ -5,6 +5,23 @@
 .element {
   overflow: -moz-scrollbars-none;
 }
+
 .element {
   -ms-overflow-style: none;
+}
+
+div.DraftEditor-root {
+  background-color: #2b2b2b;
+  height: 1142px;
+  width: 806px;
+  border: none;
+  margin-top: 3rem;
+  resize: none;
+  color: white;
+
+}
+
+div.DraftEditor-editorContainer,
+div.public-DraftEditor-content {
+  height: 100%;
 }

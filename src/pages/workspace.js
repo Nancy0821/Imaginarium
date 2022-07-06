@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, ChevronDown, ChevronRight, ChevronUp, ConstBotIcon, ConstMidIcon, ConstTopIcon, DropDownIcon, FileMenu, FileText, FontCaseCapsIcon, FontCaseDefaultIcon, FontCaseHighSmallCapsIcon, FontCaseSmallCaps, FontCaseSmallIcon, FontDotLineIcon, FontOverlineIcon, FontStrikethroughIcon, FontUnderLineIcon, FontWrongLineIcon, IndentIcon, LetterSpacingIcon, LineHeightIcon, ListDiffIcon, ListIcon, ListNumIcon, ListRowIcon, ListSquareIcon, MsgCircle, MsgSquare, OptionIcon, PHeightIcon, PlusIcon, RightIndentIcon, ShuffleIcon, TimesIcon, VoiceMemo } from "../components/Svg";
 import { values } from "lodash";
+import { Editor, EditorState, RichUtils } from 'draft-js'
+import createStyles from 'draft-js-custom-styles';
+import { stateToHTML } from 'draft-js-export-html'
+import Raw from 'draft-js-raw-content-state';
 
 const MenuData = {
     '/001': {
@@ -207,33 +211,65 @@ const MenuBar = () => {
     )
 }
 
-const EditorSection = () => {
+const styleMap = () => {
+
+}
+
+const EditorSection = (props) => {
+    const { state } = props;
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    const { styles, customStyleFn, exporter } = createStyles(['font-size', 'color', 'text-transform', 'text-align'], 'CUSTOM_', styleMap);
+    const inlineStyles = exporter(editorState);
+    const html = stateToHTML(editorState.getCurrentContent(), { inlineStyles });
+    // console.log("html:", html);
+
+    const onChange = (editState) => {
+        setEditorState(editState)
+    }
+
+    const addFontSize = () => {
+        const newEditorState = styles.fontSize.add(editorState, state.fSize);
+        if (newEditorState) {
+            onChange(newEditorState);
+            return 'handled'
+        }
+        return 'non-handled'
+    }
+
+    useEffect(() => addFontSize, [state.fSize])
+
+    const handleKeyCommand = (command) => {
+        const newState = RichUtils.handleKeyCommand(editorState, command);
+        // const code1 = stateToHTML(editorState.getCurrentContent(), { inlineStyles });
+        // const code2 = stateToHTML(newState.getCurrentContent(), { inlineStyles });
+        // console.log("editorState: ", code1)
+        // console.log("newState: ", code2)
+        if (newState) {
+            onChange(newState);
+            return 'handled'
+        }
+        return 'non-handled'
+    }
 
 
     return (
-        <div className="flex justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto ">
-            <textarea className="w-[806px] h-[1142px] border-none mt-[3rem] bg-[#2B2B2B] resize-none text-white" />
+        <div className="flex justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto" >
+            <Editor
+                customStyleMap={styleMap}
+                editorState={editorState}
+                handleKeyCommand={handleKeyCommand}
+                onChange={onChange}
+                spellCheck
+            />
+            {
+                console.log("editState: ", stateToHTML(editorState.getCurrentContent(), { inlineStyles }))}
         </div>
     );
 }
 
-const Optional = () => {
+const Optional = (props) => {
+    const { state, setState } = props;
     const [openAct, setOpenAct] = useState(false);
-    const [initAct, setInitAct] = useState("Headerline 1");
-    const [colorVal, setColorVal] = useState("#FFFFFF");
-    const [lineH, setLineH] = useState(72);
-    const [letterSpc, setLetterSpc] = useState(72);
-    const [align, setAlign] = useState(1);
-    const [Constrain, setConstrain] = useState(1);
-    const [Paragraph, setParagraph] = useState(1);
-    const [pHeight, setPHeight] = useState(999);
-    const [indent, setIndent] = useState(999);
-    const [pLeft, setPLeft] = useState(999);
-    const [pRight, setPRight] = useState(999);
-    const [pList, setPList] = useState(1);
-    const [decoration, setDecoration] = useState(1);
-    const [pCase, setPCase] = useState(1);
-
     return (
         <div>
             <div className="flex flex-col items-start gap-2 p-4 border-b border-[#262626]">
@@ -253,7 +289,7 @@ const Optional = () => {
                                     Ag
                                 </label>
                                 <label className="text-center text-white text-[12px] leading-5">
-                                    {initAct}
+                                    {state.initAct}
                                 </label>
                             </div>
 
@@ -271,7 +307,7 @@ const Optional = () => {
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
                                 onClick={() => {
-                                    setInitAct("School 1");
+                                    setState({ ...state, initAct: "School 1" })
                                     setOpenAct(false);
                                 }}
                             >
@@ -280,7 +316,7 @@ const Optional = () => {
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
                                 onClick={() => {
-                                    setInitAct("School 2");
+                                    setState({ ...state, initAct: "School 2" })
                                     setOpenAct(false);
                                 }}
                             >
@@ -289,7 +325,7 @@ const Optional = () => {
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
                                 onClick={() => {
-                                    setInitAct("School 3");
+                                    setState({ ...state, initAct: "School 3" })
                                     setOpenAct(false);
                                 }}
                             >
@@ -298,7 +334,7 @@ const Optional = () => {
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
                                 onClick={() => {
-                                    setInitAct("Custom");
+                                    setState({ ...state, initAct: "custom" })
                                     setOpenAct(false);
                                 }}
                             >
@@ -312,11 +348,11 @@ const Optional = () => {
                         Medium
                     </label>
                     <div className="flex flex-row items-center justify-between p-1 pr-2  h-full w-24 bg-[#0E0E0E] rounded relative">
-                        <input type="color" value={colorVal} onChange={(e) => setColorVal(e.target.value)} className="w-0 h-0 z-[-1] ml-[-9px]" id="color-picker" />
-                        <div className="w-6 h-6 rounded" style={{ background: colorVal }} />
+                        <input type="color" value={state.colorVal} onChange={(e) => setState({ ...state, colorVal: e.target.value })} className="w-0 h-0 z-[-1] ml-[-9px]" id="color-picker" />
+                        <div className="w-6 h-6 rounded" style={{ background: state.colorVal }} />
 
                         <label htmlFor="color-picker" className="text-xs text-[#cdcdcd] uppercase">
-                            {colorVal}
+                            {state.colorVal}
                         </label>
                     </div>
                 </div>
@@ -330,9 +366,9 @@ const Optional = () => {
             <div className="flex flex-col items-start gap-2 p-4 border-b border-[#262626]">
                 <div className="flex flex-row items-center justify-between p-0 gap-3 w-full h-8">
                     <label className="uppercase w-12 h-5 text-[10px] tracking-widest text-white flex items-center gap-1">Size</label>
-                    <input id="small-range" type="range" className=" w-40 rounded-lg appearance-none cursor-pointer h-[2px] bg-blue-100" />
+                    <input id="small-range" type="range" value={state.fSize} onChange={(e) => setState({ ...state, fSize: e.target.value })} className=" w-40 rounded-lg appearance-none cursor-pointer h-[2px] bg-blue-100" />
                     <div className="flex flex-row justify-center rounded border border-[#404040] items-center p-1  gap-2 w-[72px] h-full bg-[#0E0E0E]">
-                        <label className="text-sm text-white">72</label>
+                        <label className="text-sm text-white">{state.fSize}</label>
                         <label className="text-sm">rem</label>
                     </div>
                 </div>
@@ -350,7 +386,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="lineheihgt-text" className="uppercase text-[#CDCDCD] text-[9px]">Line</label>
-                            <input id="lineheihgt-text" type="text" value={lineH} onChange={(e) => setLineH(e.target.value)} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input id="lineheihgt-text" type="text" value={state.lineH} onChange={(e) => setState({ ...state, lineH: e.target.value })} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="lineheihgt-text" className="text-[#5F5F5F] text-sm "> rem</label>
                         </div>
                     </div>
@@ -360,7 +396,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="spacing-text" className="uppercase text-[#CDCDCD] text-[9px] ">Char</label>
-                            <input id="spacing-text" type="text" value={letterSpc} onChange={(e) => setLetterSpc(e.target.value)} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input id="spacing-text" type="text" value={state.letterSpc} onChange={(e) => setState({ ...state, letterSpc: e.target.value })} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="spacing-text" className="text-[#5F5F5F] text-sm"> rem</label>
                         </div>
                     </div>
@@ -373,10 +409,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (align === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.align === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setAlign(1);
+                                setState({ ...state, align: 1 })
                             }}
                         >
                             <AlignLeftIcon />
@@ -384,10 +420,11 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (align === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.align === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setAlign(2);
+                                setState({ ...state, align: 2 })
+                                console.log("AlignCenterIcon")
                             }}
                         >
                             <AlignCenterIcon />
@@ -395,10 +432,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (align === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.align === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setAlign(3);
+                                setState({ ...state, align: 3 })
                             }}
                         >
                             <AlignRightIcon />
@@ -406,10 +443,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (align === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.align === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setAlign(4);
+                                setState({ ...state, align: 4 })
                             }}
                         >
                             <AlignJustifyIcon />
@@ -422,10 +459,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (Constrain === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.Constrain === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setConstrain(1);
+                                setState({ ...state, Constrain: 1 })
                             }}
                         >
                             <ConstBotIcon />
@@ -433,10 +470,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (Constrain === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.Constrain === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setConstrain(2);
+                                setState({ ...state, Constrain: 2 })
                             }}
                         >
                             <ConstMidIcon />
@@ -444,10 +481,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (Constrain === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.Constrain === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setConstrain(3);
+                                setState({ ...state, Constrain: 3 })
                             }}
                         >
                             <ConstTopIcon />
@@ -463,10 +500,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (Paragraph === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.Paragraph === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setParagraph(1);
+                                setState({ ...state, Paragraph: 1 })
                             }}
                         >
                             RTL
@@ -474,10 +511,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (Paragraph === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.Paragraph === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setParagraph(2);
+                                setState({ ...state, Paragraph: 2 })
                             }}
                         >
                             LTR
@@ -491,7 +528,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 justify-between w-[calc(100%-36px)] h-5">
                             <label htmlFor="height-text" className="uppercase text-[#CDCDCD] text-[9px] ">Height</label>
-                            <input id="height-text" type="text" value={pHeight} onChange={(e) => setPHeight(e.target.value)} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input id="height-text" type="text" value={state.pHeight} onChange={(e) => setState({ ...state, pHeight: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="height-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -501,7 +538,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="indent-text" className="uppercase text-[#CDCDCD] text-[9px] ">Indent</label>
-                            <input id="indent-text" type="text" value={indent} onChange={(e) => setIndent(e.target.value)} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
+                            <input id="indent-text" type="text" value={state.indent} onChange={(e) => setState({ ...state, indent: e.target.value })} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
                             <label htmlFor="indent-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -513,7 +550,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 justify-between w-[calc(100%-36px)] h-5">
                             <label htmlFor="leftindent-text" className="uppercase text-[#CDCDCD] text-[9px] ">Left</label>
-                            <input id="leftindent-text" type="text" value={pLeft} onChange={(e) => setPLeft(e.target.value)} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input id="leftindent-text" type="text" value={state.pLeft} onChange={(e) => setState({ ...state, pLeft: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="leftindent-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -523,7 +560,7 @@ const Optional = () => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="right-indent" className="uppercase text-[#CDCDCD] text-[9px] ">Right</label>
-                            <input id="right-indent" type="text" value={pRight} onChange={(e) => setPRight(e.target.value)} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
+                            <input id="right-indent" type="text" value={state.pRight} onChange={(e) => setState({ ...state, pRight: e.target.value })} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
                             <label htmlFor="right-indent" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -549,10 +586,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-4 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(1);
+                                setState({ ...state, pList: 1 })
                             }}
                         >
                             <TimesIcon />
@@ -560,10 +597,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(2);
+                                setState({ ...state, pList: 2 })
                             }}
                         >
                             <ListIcon />
@@ -571,10 +608,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(3);
+                                setState({ ...state, pList: 3 })
                             }}
                         >
                             <ListNumIcon />
@@ -583,10 +620,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(4);
+                                setState({ ...state, pList: 4 })
                             }}
                         >
                             <ListSquareIcon />
@@ -595,10 +632,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(5);
+                                setState({ ...state, pList: 5 })
                             }}
                         >
                             <ListRowIcon />
@@ -607,10 +644,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pList === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pList === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPList(6);
+                                setState({ ...state, pList: 6 })
                             }}
                         >
                             <ListDiffIcon />
@@ -627,10 +664,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-4 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(1);
+                                setState({ ...state, decoration: 1 })
                             }}
                         >
                             <TimesIcon />
@@ -638,10 +675,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(2);
+                                setState({ ...state, decoration: 2 })
                             }}
                         >
                             <FontUnderLineIcon />
@@ -649,10 +686,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(3);
+                                setState({ ...state, decoration: 3 })
                             }}
                         >
                             <FontStrikethroughIcon />
@@ -660,10 +697,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(4);
+                                setState({ ...state, decoration: 4 })
                             }}
                         >
                             <FontOverlineIcon />
@@ -671,10 +708,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(5);
+                                setState({ ...state, decoration: 5 })
                             }}
                         >
                             <FontWrongLineIcon />
@@ -682,10 +719,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (decoration === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setDecoration(6);
+                                setState({ ...state, decoration: 6 })
                             }}
                         >
                             <FontDotLineIcon />
@@ -698,10 +735,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-2 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(1);
+                                setState({ ...state, pCase: 1 })
                             }}
                         >
                             <TimesIcon />
@@ -709,10 +746,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-1 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(2);
+                                setState({ ...state, pCase: 2 })
                             }}
                         >
                             <FontCaseDefaultIcon />
@@ -720,10 +757,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-1 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(3);
+                                setState({ ...state, pCase: 3 })
                             }}
                         >
                             <FontCaseCapsIcon />
@@ -731,10 +768,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-1 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(4);
+                                setState({ ...state, pCase: 4 })
                             }}
                         >
                             <FontCaseSmallIcon />
@@ -742,10 +779,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-1 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(5);
+                                setState({ ...state, pCase: 5 })
                             }}
                         >
                             <FontCaseHighSmallCapsIcon />
@@ -753,10 +790,10 @@ const Optional = () => {
                         <button
                             className={
                                 "h-6 px-1 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (pCase === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.pCase === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setPCase(6);
+                                setState({ ...state, pCase: 6 })
                             }}
                         >
                             <FontCaseSmallCaps />
@@ -776,8 +813,9 @@ const Optional = () => {
     )
 }
 
-const ToolBar = () => {
+const ToolBar = (props) => {
     const [value, setValue] = useState(0);
+    const { state, setState } = props;
     const handleClick = (val) => (event) => {
         event.preventDefault();
         setValue(val);
@@ -803,7 +841,7 @@ const ToolBar = () => {
             </div>
             <div className="w-full max-h-[calc(100vh-154px)] overflow-y-auto">
                 {value === 0 && <div></div>}
-                {value === 1 && <Optional />}
+                {value === 1 && <Optional state={state} setState={setState} />}
                 {value === 2 && <div></div>}
                 {value === 3 && <div></div>}
             </div>
@@ -812,11 +850,44 @@ const ToolBar = () => {
 }
 
 function WorkSpace() {
+
+    // const [initAct, setInitAct] = useState("Headerline 1");
+    // const [colorVal, setColorVal] = useState("#FFFFFF");
+    // const [lineH, setLineH] = useState(72);
+    // const [letterSpc, setLetterSpc] = useState(72);
+    // const [align, setAlign] = useState(1);
+    // const [Constrain, setConstrain] = useState(1);
+    // const [Paragraph, setParagraph] = useState(1);
+    // const [pHeight, setPHeight] = useState(999);
+    // const [indent, setIndent] = useState(999);
+    // const [pLeft, setPLeft] = useState(999);
+    // const [pRight, setPRight] = useState(999);
+    // const [pList, setPList] = useState(1);
+    // const [decoration, setDecoration] = useState(1);
+    // const [pCase, setPCase] = useState(1);
+
+    const [state, setState] = useState({
+        initAct: "Headerline 1",
+        colorVal: "#FFFFFF",
+        fSize: 72,
+        lineH: 72,
+        letterSpc: 72,
+        align: 1,
+        Constrain: 1,
+        Paragraph: 1,
+        pHeight: 999,
+        indent: 999,
+        pLeft: 999,
+        pRight: 999,
+        pList: 1,
+        decoration: 1,
+        pCase: 1
+    });
     return (
         <div className="flex justify-between bg-[#0A0A0A]">
             <MenuBar />
-            <EditorSection />
-            <ToolBar />
+            <EditorSection state={state} />
+            <ToolBar state={state} setState={setState} />
         </div>
     )
 }
