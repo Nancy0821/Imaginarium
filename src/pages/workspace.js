@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, ChevronDown, ChevronRight, ChevronUp, ConstBotIcon, ConstMidIcon, ConstTopIcon, DropDownIcon, FileMenu, FileText, FontCaseCapsIcon, FontCaseDefaultIcon, FontCaseHighSmallCapsIcon, FontCaseSmallCaps, FontCaseSmallIcon, FontDotLineIcon, FontOverlineIcon, FontStrikethroughIcon, FontUnderLineIcon, FontWrongLineIcon, IndentIcon, LetterSpacingIcon, LineHeightIcon, ListDiffIcon, ListIcon, ListNumIcon, ListRowIcon, ListSquareIcon, MsgCircle, MsgSquare, OptionIcon, PHeightIcon, PlusIcon, RightIndentIcon, ShuffleIcon, TimesIcon, VoiceMemo } from "../components/Svg";
 import { values } from "lodash";
-import { Editor, EditorState, RichUtils } from 'draft-js'
-import createStyles from 'draft-js-custom-styles';
-import { stateToHTML } from 'draft-js-export-html'
-import Raw from 'draft-js-raw-content-state';
 
 const MenuData = {
     '/001': {
@@ -211,58 +207,12 @@ const MenuBar = () => {
     )
 }
 
-const styleMap = () => {
-
-}
-
 const EditorSection = (props) => {
     const { state } = props;
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const { styles, customStyleFn, exporter } = createStyles(['font-size', 'color', 'text-transform', 'text-align'], 'CUSTOM_', styleMap);
-    const inlineStyles = exporter(editorState);
-    const html = stateToHTML(editorState.getCurrentContent(), { inlineStyles });
-    // console.log("html:", html);
-
-    const onChange = (editState) => {
-        setEditorState(editState)
-    }
-
-    const addFontSize = () => {
-        const newEditorState = styles.fontSize.add(editorState, state.fSize);
-        if (newEditorState) {
-            onChange(newEditorState);
-            return 'handled'
-        }
-        return 'non-handled'
-    }
-
-    useEffect(() => addFontSize, [state.fSize])
-
-    const handleKeyCommand = (command) => {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        // const code1 = stateToHTML(editorState.getCurrentContent(), { inlineStyles });
-        // const code2 = stateToHTML(newState.getCurrentContent(), { inlineStyles });
-        // console.log("editorState: ", code1)
-        // console.log("newState: ", code2)
-        if (newState) {
-            onChange(newState);
-            return 'handled'
-        }
-        return 'non-handled'
-    }
-
 
     return (
         <div className="flex justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto" >
-            <Editor
-                customStyleMap={styleMap}
-                editorState={editorState}
-                handleKeyCommand={handleKeyCommand}
-                onChange={onChange}
-                spellCheck
-            />
-            {
-                console.log("editState: ", stateToHTML(editorState.getCurrentContent(), { inlineStyles }))}
+
         </div>
     );
 }
@@ -664,10 +614,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-4 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 1 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "UNDERLINE" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 1 })
+                                setState({ ...state, decoration: "UNDERLINE" })
                             }}
                         >
                             <TimesIcon />
@@ -675,10 +625,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 2 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "2" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 2 })
+                                setState({ ...state, decoration: "2" })
                             }}
                         >
                             <FontUnderLineIcon />
@@ -686,10 +636,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 3 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "3" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 3 })
+                                setState({ ...state, decoration: "3" })
                             }}
                         >
                             <FontStrikethroughIcon />
@@ -697,10 +647,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 4 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "4" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 4 })
+                                setState({ ...state, decoration: "4" })
                             }}
                         >
                             <FontOverlineIcon />
@@ -708,10 +658,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 5 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "5" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 5 })
+                                setState({ ...state, decoration: "5" })
                             }}
                         >
                             <FontWrongLineIcon />
@@ -719,10 +669,10 @@ const Optional = (props) => {
                         <button
                             className={
                                 "h-6 px-3 py-0.5 text-white text-[9px] leading-5 tracking-[.21em] rounded-[2px] flex items-center " +
-                                (state.decoration === 6 ? "bg-[#5F5F5F]" : "bg-transparent")
+                                (state.decoration === "6" ? "bg-[#5F5F5F]" : "bg-transparent")
                             }
                             onClick={() => {
-                                setState({ ...state, decoration: 6 })
+                                setState({ ...state, decoration: "6" })
                             }}
                         >
                             <FontDotLineIcon />
@@ -880,7 +830,7 @@ function WorkSpace() {
         pLeft: 999,
         pRight: 999,
         pList: 1,
-        decoration: 1,
+        decoration: "None",
         pCase: 1
     });
     return (
