@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon, ChevronDown, ChevronRight, ChevronUp, ConstBotIcon, ConstMidIcon, ConstTopIcon, DropDownIcon, FileMenu, FileText, FontCaseCapsIcon, FontCaseDefaultIcon, FontCaseHighSmallCapsIcon, FontCaseSmallCaps, FontCaseSmallIcon, FontDotLineIcon, FontOverlineIcon, FontStrikethroughIcon, FontUnderLineIcon, FontWrongLineIcon, IndentIcon, LetterSpacingIcon, LineHeightIcon, ListDiffIcon, ListIcon, ListNumIcon, ListRowIcon, ListSquareIcon, MsgCircle, MsgSquare, OptionIcon, PHeightIcon, PlusIcon, RightIndentIcon, ShuffleIcon, TimesIcon, VoiceMemo } from "../components/Svg";
 import { values } from "lodash";
-
+import ContentEditable from "react-contenteditable";
+import "../basicStyle.css"
 const MenuData = {
     '/001': {
         path: '/001',
@@ -209,17 +210,178 @@ const MenuBar = () => {
 
 const EditorSection = (props) => {
     const { state } = props;
+    const [editorState, setEditorState] = useState("");
+    // const [startOffset, setStartOffset] = useState(0);
+    // const [endOffset, setEndOffset] = useState(0);
+    const [range, setRange] = useState();
+    const [content, setContent] = useState("");
+    const [rangeCnt, setRangeCnt] = useState(0);
+
+    // Header addition
+    useEffect(() => {
+        const formatBlockChange = () => {
+            let status = "";
+            switch (state.initAct) {
+                case "Headerline 1":
+                    status = "H1";
+                    break;
+                case "Headerline 2":
+                    status = "H2";
+                    break;
+                case "Headerline 3":
+                    status = "H3";
+                    break;
+                case "Headerline 4":
+                    status = "H4";
+                    break;
+                case "Headerline 5":
+                    status = "H5";
+                    break;
+                case "Headerline 6":
+                    status = "H6";
+                    break;
+                default:
+                    break;
+            }
+            document.execCommand("formatBlock", false, status);
+        }
+        formatBlockChange();
+    }, [state.initAct])
+
+    // Color Apply
+    useEffect(() => {
+        const fontColorChange = () => {
+            document.execCommand("foreColor", false, state.colorVal);
+        }
+        fontColorChange();
+    }, [state.colorVal])
+
+    // Text Align
+    useEffect(() => {
+        const justifyChange = () => {
+            let status = "";
+            switch (state.align) {
+                case 1:
+                    status = "justifyLeft";
+                    break;
+                case 2:
+                    status = "justifyCenter";
+                    break;
+                case 3:
+                    status = "justifyRight";
+                    break;
+                case 4:
+                    status = "justifyFull";
+                    break;
+                default:
+                    break;
+            }
+            document.execCommand(status, false, null);
+        }
+        justifyChange();
+    }, [state.align])
+
+    // List 
+    useEffect(() => {
+        const OrderedList = () => {
+            if (state.pList === 1) {
+                document.execCommand("removeFormat", false, null);
+            }
+            if (state.pList === 2) {
+                document.execCommand("insertUnorderedList", false, null);
+            }
+            if (state.pList === 3) {
+                document.execCommand("insertOrderedList", false, null);
+            }
+        }
+        OrderedList();
+    }, [state.pList])
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setEditorState(value);
+    }
+
+    const mouseUp = (e) => {
+        e.preventDefault();
+        // const range = window.getSelection().getRangeAt(0);
+        // const start = range.startOffset;
+        // const end = range.endOffset;
+        // console.log("start: ", start);
+        // console.log("end: ", end);
+        // setStartOffset(start);
+        // setEndOffset(end);
+        let cnt = window.getSelection();
+        setRangeCnt(cnt.rangeCount);
+        setRange(cnt.getRangeAt(0));
+        setContent(cnt.toString());
+    }
+
+    useEffect(() => {
+        console.log("Range: ", range);
+        console.log("Content: ", content);
+        var rangeAt;
+        var fontVal = state.fSize;
+        let obj = document.getElementById("divEditor");
+        // setSelection(window.getSelection);
+        if (rangeCnt) {
+            var replace_text = content;
+            rangeAt = range;
+            rangeAt.deleteContents();
+            var node = document.createElement('span');
+            node.style = `font-size:${fontVal}px`;
+            node.innerHTML = replace_text;
+            rangeAt.insertNode(node);
+        }
+    }, [state.fSize]);
+
 
     return (
         <div className="flex justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto" >
-
+            <ContentEditable onMouseUp={(e) => mouseUp(e)} tagName="pre" className="editable" html={editorState} id="divEditor" onChange={handleChange} />
+            {/* <EditButton cmd="italic" />
+            <EditButton cmd="bold" />
+            <EditButton cmd="formatBlock" arg="h1" name="heading" /> */}
         </div>
+
     );
 }
+
+// function EditButton(props) {
+//     return (
+//         <button
+//             key={props.cmd}
+//             onMouseDown={evt => {
+//                 evt.preventDefault();
+//                 document.execCommand(props.cmd, false, props.arg);
+//             }}
+//         >
+//             {props.name || props.cmd}
+//         </button>
+//     )
+// }
 
 const Optional = (props) => {
     const { state, setState } = props;
     const [openAct, setOpenAct] = useState(false);
+    let Editor = document.getElementById("divEditor");
+    const handleLineHChange = (e) => {
+        Editor.style.lineHeight = `${e.target.value / 100}px`;
+        setState({ ...state, lineH: e.target.value });
+    }
+
+    const handleLetterSpcChange = (e) => {
+        Editor.style.letterSpacing = `${e.target.value / 100}rem`;
+        setState({ ...state, letterSpc: e.target.value });
+    }
+
+
+    useEffect(() => {
+        Editor.style.direction = state.Paragraph === 1 ? "ltr" : "rtl";
+    }, [state.Paragraph]);
+
+
+
     return (
         <div>
             <div className="flex flex-col items-start gap-2 p-4 border-b border-[#262626]">
@@ -252,44 +414,72 @@ const Optional = (props) => {
                     {openAct ? (
                         <ul
                             tabIndex="0"
-                            className="drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] menu menu-compact dropdown-content mt-3 shadow bg-[#161616] border border-[#464646] w-full h-32 rounded-[4px]"
+                            className="list-none p-0 drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] menu menu-compact dropdown-content mt-3 shadow bg-[#161616] border border-[#464646] w-full h-56 rounded-[4px]"
                         >
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
-                                onClick={() => {
-                                    setState({ ...state, initAct: "School 1" })
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
                                     setOpenAct(false);
                                 }}
                             >
-                                School 1
+                                None
                             </li>
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
-                                onClick={() => {
-                                    setState({ ...state, initAct: "School 2" })
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
                                     setOpenAct(false);
                                 }}
                             >
-                                School 2
+                                Headerline 1
                             </li>
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
-                                onClick={() => {
-                                    setState({ ...state, initAct: "School 3" })
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
                                     setOpenAct(false);
                                 }}
                             >
-                                School 3
+                                Headerline 2
                             </li>
                             <li
                                 className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
-                                onClick={() => {
-                                    setState({ ...state, initAct: "custom" })
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
                                     setOpenAct(false);
                                 }}
                             >
-                                Custom
+                                Headerline 3
                             </li>
+                            <li
+                                className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
+                                    setOpenAct(false);
+                                }}
+                            >
+                                Headerline 4
+                            </li>
+                            <li
+                                className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
+                                    setOpenAct(false);
+                                }}
+                            >
+                                Headerline 5
+                            </li>
+                            <li
+                                className="flex flex-row px-2 py-1.5 h-8 text-center text-white text-[12px] leading-5 border-b border-[#464646] hover:bg-[#5D5D5D]"
+                                onClick={(e) => {
+                                    setState({ ...state, initAct: e.currentTarget.textContent })
+                                    setOpenAct(false);
+                                }}
+                            >
+                                Headerline 6
+                            </li>
+
                         </ul>
                     ) : null}
                 </div>
@@ -299,9 +489,8 @@ const Optional = (props) => {
                     </label>
                     <div className="flex flex-row items-center justify-between p-1 pr-2  h-full w-24 bg-[#0E0E0E] rounded relative">
                         <input type="color" value={state.colorVal} onChange={(e) => setState({ ...state, colorVal: e.target.value })} className="w-0 h-0 z-[-1] ml-[-9px]" id="color-picker" />
-                        <div className="w-6 h-6 rounded" style={{ background: state.colorVal }} />
-
-                        <label htmlFor="color-picker" className="text-xs text-[#cdcdcd] uppercase">
+                        <label htmlFor="color-picker" className="cursor-pointer"><div className="w-6 h-6 rounded" style={{ background: state.colorVal }} /></label>
+                        <label htmlFor="color-picker" className="text-xs text-[#cdcdcd] cursor-pointer uppercase">
                             {state.colorVal}
                         </label>
                     </div>
@@ -316,7 +505,7 @@ const Optional = (props) => {
             <div className="flex flex-col items-start gap-2 p-4 border-b border-[#262626]">
                 <div className="flex flex-row items-center justify-between p-0 gap-3 w-full h-8">
                     <label className="uppercase w-12 h-5 text-[10px] tracking-widest text-white flex items-center gap-1">Size</label>
-                    <input id="small-range" type="range" value={state.fSize} onChange={(e) => setState({ ...state, fSize: e.target.value })} className=" w-40 rounded-lg appearance-none cursor-pointer h-[2px] bg-blue-100" />
+                    <input id="small-range" type="range" value={state.fSize} onChange={(e) => { e.preventDefault(); setState({ ...state, fSize: e.target.value }) }} className=" w-40 rounded-lg appearance-none cursor-pointer h-[2px] bg-blue-100" />
                     <div className="flex flex-row justify-center rounded border border-[#404040] items-center p-1  gap-2 w-[72px] h-full bg-[#0E0E0E]">
                         <label className="text-sm text-white">{state.fSize}</label>
                         <label className="text-sm">rem</label>
@@ -336,7 +525,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="lineheihgt-text" className="uppercase text-[#CDCDCD] text-[9px]">Line</label>
-                            <input id="lineheihgt-text" type="text" value={state.lineH} onChange={(e) => setState({ ...state, lineH: e.target.value })} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input min={1} max={99} id="lineheihgt-text" type="number" value={state.lineH} onChange={(e) => handleLineHChange(e)} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="lineheihgt-text" className="text-[#5F5F5F] text-sm "> rem</label>
                         </div>
                     </div>
@@ -346,7 +535,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="spacing-text" className="uppercase text-[#CDCDCD] text-[9px] ">Char</label>
-                            <input id="spacing-text" type="text" value={state.letterSpc} onChange={(e) => setState({ ...state, letterSpc: e.target.value })} min={"0"} max={"100"} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input min={1} max={99} id="spacing-text" type="number" value={state.letterSpc} onChange={(e) => handleLetterSpcChange(e)} className="w-12 h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="spacing-text" className="text-[#5F5F5F] text-sm"> rem</label>
                         </div>
                     </div>
@@ -478,7 +667,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 justify-between w-[calc(100%-36px)] h-5">
                             <label htmlFor="height-text" className="uppercase text-[#CDCDCD] text-[9px] ">Height</label>
-                            <input id="height-text" type="text" value={state.pHeight} onChange={(e) => setState({ ...state, pHeight: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input min={1} max={999} id="height-text" type="number" value={state.pHeight} onChange={(e) => setState({ ...state, pHeight: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="height-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -488,7 +677,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="indent-text" className="uppercase text-[#CDCDCD] text-[9px] ">Indent</label>
-                            <input id="indent-text" type="text" value={state.indent} onChange={(e) => setState({ ...state, indent: e.target.value })} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
+                            <input min={1} max={999} id="indent-text" type="number" value={state.indent} onChange={(e) => setState({ ...state, indent: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
                             <label htmlFor="indent-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -500,7 +689,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 justify-between w-[calc(100%-36px)] h-5">
                             <label htmlFor="leftindent-text" className="uppercase text-[#CDCDCD] text-[9px] ">Left</label>
-                            <input id="leftindent-text" type="text" value={state.pLeft} onChange={(e) => setState({ ...state, pLeft: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
+                            <input min={1} max={999} id="leftindent-text" type="number" value={state.pLeft} onChange={(e) => setState({ ...state, pLeft: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E] border-none text-sm text-white " />
                             <label htmlFor="leftindent-text" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -510,7 +699,7 @@ const Optional = (props) => {
                         </div>
                         <div className="flex items-center p-0 h-5 w-[calc(100%-36px)]">
                             <label htmlFor="right-indent" className="uppercase text-[#CDCDCD] text-[9px] ">Right</label>
-                            <input id="right-indent" type="text" value={state.pRight} onChange={(e) => setState({ ...state, pRight: e.target.value })} min={"0"} max={"100"} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
+                            <input min={1} max={"999"} id="right-indent" type="number" value={state.pRight} onChange={(e) => setState({ ...state, pRight: e.target.value })} className="w-[50px] h-full bg-[#0E0E0E]  border-none text-sm text-white " />
                             <label htmlFor="right-indent" className="text-[#5F5F5F] text-sm"> px</label>
                         </div>
                     </div>
@@ -817,11 +1006,11 @@ function WorkSpace() {
     // const [pCase, setPCase] = useState(1);
 
     const [state, setState] = useState({
-        initAct: "Headerline 1",
+        initAct: "None",
         colorVal: "#FFFFFF",
         fSize: 72,
-        lineH: 72,
-        letterSpc: 72,
+        lineH: 25,
+        letterSpc: 1,
         align: 1,
         Constrain: 1,
         Paragraph: 1,
