@@ -708,7 +708,7 @@ export const WorkSpaceNavbar = () => {
           </button>
         </div>
         <div className="flex items-center flex-row justify-center ">
-          <div className="max-w-2xl text-sm breadcrumbs">
+          <div className="max-w-2xl text-white text-sm breadcrumbs">
             <ul>
               <li>John Wick Chapter 4</li>
               <li>Act 1</li>

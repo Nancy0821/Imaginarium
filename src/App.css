@@ -10,25 +10,6 @@
   -ms-overflow-style: none;
 }
 
-.editable {
-  background-color: #2b2b2b;
-  height: 1142px;
-  width: 806px;
-  border: none;
-  margin-top: 3rem;
-  resize: none;
-  color: white;
-  word-wrap: break-word;
-  outline: none;
-}
-
-
-div.DraftEditor-editorContainer,
-div.public-DraftEditor-content {
-  height: 100%;
-}
-
-
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
