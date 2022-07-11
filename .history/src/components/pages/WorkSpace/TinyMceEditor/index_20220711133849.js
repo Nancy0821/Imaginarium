@@ -103,7 +103,7 @@ const TinyMceEditor = (props) => {
                 toolbar_mode: 'sliding',
                 spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
                 tinycomments_mode: 'embedded',
-                content_style: 'body{ color: white; background: #222F3E; font-size: 18px;}',
+                content_style: 'body{ color: white; background: #222F3E; font-size: 18px; margin-top: 3rem;}',
                 contextmenu: 'link image table configurepermanentpen',
                 a11y_advanced_options: true,
                 skin: "oxide-dark",

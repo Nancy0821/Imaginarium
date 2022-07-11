@@ -49,6 +49,7 @@ const TinyMceEditor = (props) => {
 
     useEffect(() => {
         const TinyInit = () => {
+
             tinymce.init({
                 selector: 'textarea#full-featured',
                 plugins: 'preview  importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars ',
@@ -96,14 +97,14 @@ const TinyMceEditor = (props) => {
                 ],
                 template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
                 template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-                height: 1120,
+                height: 600,
                 image_caption: true,
                 quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
                 noneditable_class: 'mceNonEditable',
                 toolbar_mode: 'sliding',
                 spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
                 tinycomments_mode: 'embedded',
-                content_style: 'body{ color: white; background: #222F3E; font-size: 18px;}',
+                content_style: '.full-featured{ color: gray; }',
                 contextmenu: 'link image table configurepermanentpen',
                 a11y_advanced_options: true,
                 skin: "oxide-dark",
@@ -111,8 +112,7 @@ const TinyMceEditor = (props) => {
                 branding: false,
             });
         }
-        TinyInit();
-        console.log("Tiny Inited");
+
     }, [])
 
     return (

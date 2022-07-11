@@ -23,6 +23,5 @@ const config = {
                 "ascii_only": true
             }
         })
-    ],
-    devtool: "source-map",
+    ]
 }

@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import tinymce from 'tinymce/tinymce'
 
 import "tinymce/models/dom"
-import 'tinymce/skins/ui/oxide-dark/skin.css';
 
 // Theme
 import 'tinymce/themes/silver';
