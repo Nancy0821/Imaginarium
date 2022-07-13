@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // TinyMCE so the global var exists
 // eslint-disable-next-line no-unused-vars
-import tinymce from 'tinymce/tinymce'
+import { Editor } from "@tinymce/tinymce-react";
+import { TinyMCE } from "tinymce";
 
-import "tinymce/models/dom"
 import 'tinymce/skins/ui/oxide-dark/skin.css';
+
+import 'tinymce/models/dom/model'
+import 'tinymce/models/dom'
 
 // Theme
 import 'tinymce/themes/silver';
@@ -41,85 +44,77 @@ import "tinymce/plugins/visualblocks"
 import "tinymce/plugins/visualchars"
 import "tinymce/plugins/wordcount"
 
+import getCurrentStyle from "./getCurrentStyles";
+
 
 const TinyMceEditor = (props) => {
     const { state, setState } = props;
+    const [editorState, setEditorState] = useState("<p>Hello World!</p>")
+    const editorRef = useRef(null);
 
-    const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
-
-    useEffect(() => {
-        const TinyInit = () => {
-            tinymce.init({
-                selector: 'textarea#full-featured',
-                plugins: 'preview  importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars ',
-                tinydrive_token_provider: 'URL_TO_YOUR_TOKEN_PROVIDER',
-                tinydrive_dropbox_app_key: 'YOUR_DROPBOX_APP_KEY',
-                tinydrive_google_drive_key: 'YOUR_GOOGLE_DRIVE_KEY',
-                tinydrive_google_drive_client_id: 'YOUR_GOOGLE_DRIVE_CLIENT_ID',
-                mobile: {
-                    plugins: 'preview  importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars'
-                },
-                menu: {
-                    tc: {
-                        title: 'Comments',
-                        items: 'addcomment showcomments deleteallconversations'
-                    }
-                },
-                menubar: 'file edit view insert format tools table tc help',
-                toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor  permanentpen removeformat | pagebreak | charmap | fullscreen  preview save print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-                toolbar_sticky: true,
-                toolbar_sticky_offset: isSmallScreen ? 102 : 108,
-                autosave_ask_before_unload: true,
-                autosave_interval: '30s',
-                autosave_prefix: '{path}{query}-{id}-',
-                autosave_restore_when_empty: false,
-                autosave_retention: '2m',
-                image_advtab: true,
-                emoticons_images_url: 'http://my.server/images/emoticons/',
-                link_list: [
-                    { title: 'My page 1', value: 'https://www.tiny.cloud' },
-                    { title: 'My page 2', value: 'http://www.moxiecode.com' }
-                ],
-                image_list: [
-                    { title: 'My page 1', value: 'https://www.tiny.cloud' },
-                    { title: 'My page 2', value: 'http://www.moxiecode.com' }
-                ],
-                image_class_list: [
-                    { title: 'None', value: '' },
-                    { title: 'Some class', value: 'class-name' }
-                ],
-                importcss_append: true,
-                templates: [
-                    { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-                    { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-                    { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
-                ],
-                template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-                template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-                height: 1120,
-                image_caption: true,
-                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-                noneditable_class: 'mceNonEditable',
-                toolbar_mode: 'sliding',
-                spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
-                tinycomments_mode: 'embedded',
-                content_style: 'body{ color: white; background: #222F3E; font-size: 18px;}',
-                contextmenu: 'link image table configurepermanentpen',
-                a11y_advanced_options: true,
-                skin: "oxide-dark",
-                content_css: "dark",
-                branding: false,
-            });
-        }
-        TinyInit();
-        console.log("Tiny Inited");
-    }, [])
+    const handleChange = () => {
+        setEditorState(editorRef.current.getContent());
+        console.log("Editor: ", editorRef.current.getContent());
+    }
 
     return (
-        <div className="flex justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto" >
-            <textarea id="full-featured">
-
-            </textarea>
+        <div className="flex flex-col items-center justify-center max-h-[calc(100vh-112px)] w-[65%] overflow-y-auto" >
+            <div className="h-12 w-full " />
+            <Editor
+                apiKey="1fh52zkwtcwiski4p6orfwfxd8vcerxbdw33uug1lc7g6yoi"
+                onInit={(evt, editor) => editorRef.current = editor}
+                init={{
+                    autosave_ask_before_unload: true,
+                    autosave_interval: '30s',
+                    autosave_prefix: '{path}{query}-{id}-',
+                    autosave_restore_when_empty: false,
+                    autosave_retention: '2m',
+                    image_advtab: true,
+                    toolbar: false,
+                    menubar: false,
+                    emoticons_images_url: 'http://my.server/images/emoticons/',
+                    link_list: [
+                        { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                        { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                    ],
+                    image_list: [
+                        { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                        { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                    ],
+                    image_class_list: [
+                        { title: 'None', value: '' },
+                        { title: 'Some class', value: 'class-name' }
+                    ],
+                    importcss_append: true,
+                    templates: [
+                        { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                        { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                        { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                    ],
+                    template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                    template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                    height: 800,
+                    width: 800,
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable casechange',
+                    noneditable_class: 'mceNonEditable',
+                    spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
+                    content_style: '.tox-tinymce { margin-top: 3rem; } body{ color: white; background: #2b2b2b; font-size: 18px; font-family:Helvetica,Arial,sans-serif;}',
+                    contextmenu: 'link image table configurepermanentpen',
+                    a11y_advanced_options: true,
+                    skin: "oxide-dark",
+                    content_css: "dark",
+                    branding: false,
+                    init_instance_callback: function (editor) {
+                        editor.on('click', function (e) {
+                            getCurrentStyle(state, setState);
+                        });
+                    },
+                    nonbreaking_force_tab: true
+                }}
+                value={editorState}
+                onEditorChange={() => handleChange()}
+            />
         </div>
 
     );

@@ -82,9 +82,7 @@ pre ol {
     padding-left: 40px;
 }
 
-textarea#mentions {
-    height: 350px;
-}
+
 
 div.card,
 .tox div.card {
@@ -134,4 +132,17 @@ div.card img.avatar,
     -moz-user-select: none;
     -ms-user-select: none;
 
+}
+
+.tox .tox-tinymce {
+    margin-top: 3rem;
+}
+
+.tox-editor-header {
+    display: none
+}
+
+.tox .tox-edit-area__iframe,
+.tox .tox-statusbar {
+    background: #2b2b2b;
 }

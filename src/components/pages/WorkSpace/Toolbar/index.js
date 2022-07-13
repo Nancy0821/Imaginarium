@@ -28,7 +28,7 @@ const ToolBar = (props) => {
                     <VoiceMemo />
                 </div>
             </div>
-            <div className="w-full max-h-[calc(100vh-154px)] overflow-y-auto">
+            <div className="w-full min-h-[calc(100vh-154px)] overflow-y-auto">
                 {value === 0 && <div></div>}
                 {value === 1 && <Optional state={state} setState={setState} />}
                 {value === 2 && <div></div>}

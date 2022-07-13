@@ -11,21 +11,27 @@ function WorkSpace() {
     const [state, setState] = useState({
         editorState: "<p>Hello World</p>",
         selectedContent: "",
-        initAct: "None",
+        blockquote: "Paragraph",
         colorVal: "#FFFFFF",
-        fSize: 72,
+        fSize: 14,
+        fWeight: 16,
         lineH: 25,
         letterSpc: 1,
         align: 1,
-        Constrain: 1,
-        Paragraph: 1,
+        // Constrain: 1,
+        Paragraph: false,
         pHeight: 999,
         indent: 999,
         pLeft: 999,
         pRight: 999,
         pList: 1,
-        decoration: "None",
+        decoration: 1,
+        bold: false,
+        underline: false,
+        strikethr: false,
+        italic: false,
         pCase: 1,
+        fName: "Helvetica"
     });
 
     return (
