@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { MenuBar } from "../components/pages/WorkSpace/MenuBar";
-import TinyMceEditor from "../components/pages/WorkSpace/TinyMceEditor";
+import TinyMceEditor from "../components/pages/WorkSpace/Text/TinyMceEditor";
 import ToolBar from "../components/pages/WorkSpace/Toolbar";
 
 import "../basicStyle.css"

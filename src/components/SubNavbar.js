@@ -647,9 +647,6 @@ export const WorkSpaceNavbar = () => {
     menu.classList.toggle("h-auto");
   }
 
-  const [projectsType, setProjectsType] = React.useState("ALL PROJECTS");
-  const [openProjectsType, setOpenProjectsType] = React.useState(false);
-  const [checkedShowFinish, setCheckedShowFinsh] = React.useState(false);
   const [projectType, setProjectType] = React.useState(1);
   return (
     <div className="flex w-full h-14 bg-neutral-840 select-none">
@@ -662,8 +659,8 @@ export const WorkSpaceNavbar = () => {
         >
           <button
             className={
-              "!inline-flex flex flex-row p-4 space-x-2 h-full cursor-pointer hover:bg-[#1F1F1F] focus:bg-black-rgba outline-none	items-center " +
-              +(projectType === 1 ? "active" : null)
+              "!inline-flex flex flex-row p-4 space-x-2 h-full cursor-pointer  outline-none	items-center "
+              + (projectType === 1 ? "bg-sky-900" : "bg-[#0E0E0E]")
             }
             onClick={() => {
               setProjectType(1);
@@ -674,8 +671,8 @@ export const WorkSpaceNavbar = () => {
           </button>
           <button
             className={
-              "!inline-flex flex flex-row p-4 space-x-2 h-full cursor-pointer hover:bg-[#1F1F1F] focus:bg-black-rgba outline-none items-center " +
-              (projectType === 2 ? "active" : null)
+              "!inline-flex flex flex-row p-4 space-x-2 h-full cursor-pointer  outline-none items-cen+ter " +
+              (projectType === 2 ? "bg-sky-900" : "bg-[#0E0E0E]")
             }
             onClick={() => {
               setProjectType(2);
@@ -686,8 +683,8 @@ export const WorkSpaceNavbar = () => {
           </button>
           <button
             className={
-              "flex flex-row p-4 space-x-2 h-full cursor-pointer hover:bg-[#1F1F1F] focus:bg-black-rgba outline-none items-center " +
-              (projectType === 3 ? "active" : null)
+              "flex flex-row p-4 space-x-2 h-full cursor-pointer  outline-none items-center " +
+              (projectType === 3 ? "bg-sky-900" : "bg-[#0E0E0E]")
             }
             onClick={() => {
               setProjectType(3);

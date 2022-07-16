@@ -1202,3 +1202,188 @@ export const BoldIcon = () => {
 
   )
 }
+
+export const SettingIcon = () => {
+  return (
+    <svg width="19.5" height="19.5" viewBox="0 0 19.5 19.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M10 8.5C9.173 8.5 8.5 9.173 8.5 10C8.5 10.827 9.173 11.5 10 11.5C10.827 11.5 11.5 10.827 11.5 10C11.5 9.173 10.827 8.5 10 8.5ZM10 13.5C8.07 13.5 6.5 11.93 6.5 10C6.5 8.07 8.07 6.5 10 6.5C11.93 6.5 13.5 8.07 13.5 10C13.5 11.93 11.93 13.5 10 13.5ZM18.317 7.375H17.233C17.086 7.375 16.986 7.258 16.925 7.111C16.879 7 16.867 6.846 16.972 6.741L17.742 5.975C18.06 5.658 18.236 5.235 18.236 4.787C18.236 4.337 18.062 3.915 17.744 3.598L16.403 2.257C15.749 1.601 14.682 1.603 14.026 2.257L13.256 3.028C13.152 3.133 12.998 3.12 12.853 3.06C12.743 3.015 12.625 2.914 12.625 2.767V1.676C12.625 0.752 11.874 0 10.949 0H9.057C8.129 0 7.375 0.755 7.375 1.683V2.767C7.375 2.914 7.258 3.014 7.111 3.075C7 3.122 6.845 3.134 6.741 3.028L5.976 2.259C5.658 1.94 5.236 1.765 4.787 1.765H4.785C4.336 1.765 3.914 1.939 3.597 2.257L2.257 3.597C1.602 4.251 1.602 5.317 2.257 5.974L3.028 6.744C3.132 6.848 3.12 7.003 3.06 7.147C3.015 7.257 2.914 7.375 2.767 7.375H1.676C0.752 7.375 0 8.126 0 9.051V10.943C0 11.871 0.755 12.625 1.683 12.625H2.767C2.914 12.625 3.014 12.742 3.075 12.889C3.121 13 3.133 13.154 3.028 13.259L2.259 14.024C1.94 14.342 1.765 14.764 1.765 15.213C1.764 15.663 1.939 16.085 2.257 16.403L3.597 17.743C4.251 18.399 5.318 18.397 5.974 17.743L6.744 16.972C6.849 16.869 7.003 16.881 7.147 16.94C7.257 16.985 7.375 17.086 7.375 17.233V18.324C7.375 19.248 8.126 20 9.051 20H10.943C11.871 20 12.625 19.245 12.625 18.317V17.233C12.625 17.086 12.742 16.986 12.889 16.925C12.999 16.879 13.154 16.867 13.259 16.972L14.024 17.741C14.342 18.06 14.764 18.235 15.213 18.235H15.215C15.664 18.235 16.086 18.061 16.403 17.743L17.743 16.403C18.398 15.749 18.398 14.683 17.743 14.026L16.972 13.256C16.868 13.152 16.88 12.997 16.927 12.886C16.927 12.884 16.94 12.854 16.94 12.853C16.985 12.743 17.086 12.625 17.233 12.625H18.324C19.248 12.625 20 11.874 20 10.949V9.057C20 8.129 19.245 7.375 18.317 7.375Z" fill="white" />
+
+    </svg >
+
+  )
+}
+
+export const CommentIcon = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M19.0706 4.92817C16.7866 2.64417 13.6256 1.62517 10.3966 2.12417C6.31961 2.76017 2.93961 6.04417 2.17661 10.1112C1.80961 12.0692 2.02061 14.0632 2.78761 15.8762C2.88561 16.1062 2.91561 16.3222 2.87661 16.5152L2.01961 20.8032C1.95361 21.1312 2.05661 21.4702 2.29261 21.7062C2.48161 21.8952 2.73661 21.9992 2.99961 21.9992C3.06461 21.9992 3.13061 21.9932 3.19561 21.9792L7.47861 21.1232C7.72461 21.0762 7.96361 21.1452 8.12261 21.2112C9.93661 21.9782 11.9306 22.1882 13.8876 21.8222C17.9546 21.0592 21.2386 17.6792 21.8746 13.6022C22.3776 10.3742 21.3556 7.21317 19.0706 4.92817Z" fill="currentColor" />
+
+    </svg >
+
+  )
+}
+
+export const PenIcon = () => {
+  return (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M12.0187 6.6787L9.32365 3.9837L11.2717 2.0347L13.9657 4.7287L12.0187 6.6787ZM15.4037 3.3377L15.4027 3.3367L12.6647 0.598698C11.9237 -0.140302 10.6507 -0.175302 9.94865 0.529698L0.952652 9.5257C0.626652 9.8507 0.424652 10.2827 0.382652 10.7397L0.00365188 14.9097C-0.0223481 15.2047 0.0826519 15.4967 0.292652 15.7067C0.481652 15.8957 0.736652 15.9997 0.999652 15.9997C1.03065 15.9997 1.06065 15.9987 1.09065 15.9957L5.26065 15.6167C5.71865 15.5747 6.14965 15.3737 6.47465 15.0487L15.4717 6.0517C16.1997 5.3217 16.1687 4.1037 15.4037 3.3377Z" fill="white" />
+
+    </svg >
+
+  )
+}
+
+export const PlayCircleIcon = () => {
+  return (
+    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M-9.81596 75.564L-10.27 76.455L-9.81596 75.564ZM-11.564 73.816L-12.455 74.27L-11.564 73.816ZM282.564 73.816L283.455 74.27L282.564 73.816ZM280.816 75.564L281.27 76.455L280.816 75.564ZM280.816 -39.564L281.27 -40.455L280.816 -39.564ZM282.564 -37.816L281.673 -37.362L282.564 -37.816ZM-9.81596 -39.564L-10.27 -40.455L-9.81596 -39.564ZM-11.564 -37.816L-12.455 -38.27L-11.564 -37.816ZM-5.6 -39H276.6V-41H-5.6V-39ZM282 -33.6V69.6H284V-33.6H282ZM276.6 75H-5.6V77H276.6V75ZM-11 69.6V-33.6H-13V69.6H-11ZM-5.6 75C-6.73661 75 -7.52892 74.9992 -8.14576 74.9488C-8.75093 74.8994 -9.09862 74.8072 -9.36197 74.673L-10.27 76.455C-9.67766 76.7568 -9.03747 76.8826 -8.30863 76.9422C-7.59145 77.0008 -6.70361 77 -5.6 77V75ZM-13 69.6C-13 70.7036 -13.0008 71.5914 -12.9422 72.3086C-12.8826 73.0375 -12.7568 73.6777 -12.455 74.27L-10.673 73.362C-10.8072 73.0986 -10.8994 72.7509 -10.9488 72.1458C-10.9992 71.5289 -11 70.7366 -11 69.6H-13ZM-9.36197 74.673C-9.92646 74.3854 -10.3854 73.9265 -10.673 73.362L-12.455 74.27C-11.9757 75.2108 -11.2108 75.9757 -10.27 76.455L-9.36197 74.673ZM282 69.6C282 70.7366 281.999 71.5289 281.949 72.1458C281.899 72.7509 281.807 73.0986 281.673 73.362L283.455 74.27C283.757 73.6777 283.883 73.0375 283.942 72.3086C284.001 71.5914 284 70.7036 284 69.6H282ZM276.6 77C277.704 77 278.591 77.0008 279.309 76.9422C280.037 76.8826 280.678 76.7568 281.27 76.455L280.362 74.673C280.099 74.8072 279.751 74.8994 279.146 74.9488C278.529 74.9992 277.737 75 276.6 75V77ZM281.673 73.362C281.385 73.9265 280.926 74.3854 280.362 74.673L281.27 76.455C282.211 75.9757 282.976 75.2108 283.455 74.27L281.673 73.362ZM276.6 -39C277.737 -39 278.529 -38.9992 279.146 -38.9488C279.751 -38.8994 280.099 -38.8072 280.362 -38.673L281.27 -40.455C280.678 -40.7568 280.037 -40.8826 279.309 -40.9422C278.591 -41.0008 277.704 -41 276.6 -41V-39ZM284 -33.6C284 -34.7036 284.001 -35.5914 283.942 -36.3086C283.883 -37.0375 283.757 -37.6777 283.455 -38.27L281.673 -37.362C281.807 -37.0986 281.899 -36.7509 281.949 -36.1458C281.999 -35.5289 282 -34.7366 282 -33.6H284ZM280.362 -38.673C280.926 -38.3854 281.385 -37.9265 281.673 -37.362L283.455 -38.27C282.976 -39.2108 282.211 -39.9757 281.27 -40.455L280.362 -38.673ZM-5.6 -41C-6.7036 -41 -7.59145 -41.0008 -8.30862 -40.9422C-9.03747 -40.8826 -9.67766 -40.7568 -10.27 -40.455L-9.36197 -38.673C-9.09862 -38.8072 -8.75093 -38.8994 -8.14576 -38.9488C-7.52892 -38.9992 -6.73661 -39 -5.6 -39V-41ZM-11 -33.6C-11 -34.7366 -10.9992 -35.5289 -10.9488 -36.1458C-10.8994 -36.7509 -10.8072 -37.0986 -10.673 -37.362L-12.455 -38.27C-12.7568 -37.6777 -12.8826 -37.0375 -12.9422 -36.3086C-13.0008 -35.5914 -13 -34.7036 -13 -33.6H-11ZM-10.27 -40.455C-11.2108 -39.9757 -11.9757 -39.2108 -12.455 -38.27L-10.673 -37.362C-10.3854 -37.9265 -9.92646 -38.3854 -9.36197 -38.673L-10.27 -40.455Z" fill="#2B2B2B" />
+    </svg >
+  )
+}
+
+export const PauseCircleIcon = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M8 9C8 8.45 8.45 8 9 8C9.55 8 10 8.45 10 9V15C10 15.55 9.55 16 9 16C8.45 16 8 15.55 8 15V9ZM13.9995 9C13.9995 8.45 14.4495 8 14.9995 8C15.5495 8 15.9995 8.45 15.9995 9V15C15.9995 15.55 15.5495 16 14.9995 16C14.4495 16 13.9995 15.55 13.9995 15V9ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20ZM12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2Z" fill="currentColor" />
+    </svg >
+  )
+}
+
+export const StopCircleIcon = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M10 14H14V10H10V14ZM14.75 8H9.25C8.561 8 8 8.561 8 9.25V14.75C8 15.439 8.561 16 9.25 16H14.75C15.439 16 16 15.439 16 14.75V9.25C16 8.561 15.439 8 14.75 8ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20ZM12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2Z" fill="currentColor" />
+    </svg >
+  )
+}
+
+export const MoreVerticalIcon = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M12 7C13.104 7 14 6.104 14 5C14 3.896 13.104 3 12 3C10.896 3 10 3.896 10 5C10 6.104 10.896 7 12 7ZM12 10C10.896 10 10 10.896 10 12C10 13.104 10.896 14 12 14C13.104 14 14 13.104 14 12C14 10.896 13.104 10 12 10ZM10 19C10 17.896 10.896 17 12 17C13.104 17 14 17.896 14 19C14 20.104 13.104 21 12 21C10.896 21 10 20.104 10 19Z" fill="white" />
+    </svg >
+  )
+}
+
+export const IconicIcon = () => {
+  return (
+    <svg width="25" height="24" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M12.3032 7.59637L9.78056 10.909L8.6919 9.51837C8.46523 9.22771 8.04523 9.17704 7.7559 9.40437C7.4659 9.63104 7.41456 10.0504 7.6419 10.3397L9.26256 12.411C9.38923 12.5724 9.58256 12.6664 9.7879 12.6664H9.79256C9.99856 12.6657 10.1932 12.5684 10.3179 12.4037L13.3639 8.40371C13.5872 8.11037 13.5306 7.69304 13.2372 7.46971C12.9432 7.24637 12.5259 7.30371 12.3032 7.59637ZM10.5002 15.3334C7.5595 15.3334 5.16683 12.9407 5.16683 10C5.16683 7.05937 7.5595 4.66671 10.5002 4.66671C13.4408 4.66671 15.8335 7.05937 15.8335 10C15.8335 12.9407 13.4408 15.3334 10.5002 15.3334ZM10.5002 3.33337C6.81816 3.33337 3.8335 6.31871 3.8335 10C3.8335 13.6814 6.81816 16.6667 10.5002 16.6667C14.1822 16.6667 17.1668 13.6814 17.1668 10C17.1668 6.31871 14.1822 3.33337 10.5002 3.33337Z" fill="white" />
+    </svg >
+  )
+}
+
+export const CopyLinkIcon = () => {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M5.5 8V8.83333H2.7225C2.41583 8.83333 2.16667 8.58417 2.16667 8.2775V2.7225C2.16667 2.41583 2.41583 2.16667 2.7225 2.16667H8.2775C8.58417 2.16667 8.83333 2.41583 8.83333 2.7225V5.5H8C6.62167 5.5 5.5 6.62167 5.5 8M13 5.5H10.5V2.7225C10.5 1.49667 9.50333 0.5 8.2775 0.5H2.7225C1.49667 0.5 0.5 1.49667 0.5 2.7225V8.2775C0.5 9.50333 1.49667 10.5 2.7225 10.5H5.5V13C5.5 14.3783 6.62167 15.5 8 15.5H13C14.3783 15.5 15.5 14.3783 15.5 13V8C15.5 6.62167 14.3783 5.5 13 5.5" fill="white" />
+    </svg >
+  )
+}
+
+export const VoiceIcon = () => {
+  return (
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M11 9C11 11.206 9.206 13 7 13C4.794 13 3 11.206 3 9V4C3 1.794 4.794 0 7 0C9.206 0 11 1.794 11 4V9ZM13 8C13.553 8 14 8.448 14 9C14 12.52 11.387 15.432 8 15.92V18H10.105C10.598 18 11 18.402 11 18.895V19.105C11 19.598 10.598 20 10.105 20H3.895C3.402 20 3 19.598 3 19.105V18.895C3 18.402 3.402 18 3.895 18H6V15.92C2.613 15.432 0 12.52 0 9C0 8.448 0.447 8 1 8C1.553 8 2 8.448 2 9C2 11.757 4.243 14 7 14C9.757 14 12 11.757 12 9C12 8.448 12.447 8 13 8Z" fill="white" />
+    </svg >
+  )
+}
+
+export const VoiceLine = () => {
+  return (
+    <svg width="296" height="40" viewBox="0 0 296 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="296" height="40" fill="#1E1E1E" />
+      <g filter="url(#filter0_d_796_4918)">
+        <rect x="-80" y="-120" width="400" height="256" rx="4" fill="#2B2B2B" />
+        <rect width="400" height="144" transform="translate(-80 -72)" fill="#2B2B2B" />
+        <line x1="1" y1="8.5" x2="0.999999" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="5" y1="11" x2="5" y2="29" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="9" y1="4" x2="9" y2="36" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="13" y1="5.5" x2="13" y2="34.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="17" y1="17" x2="17" y2="23" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="21" y1="6.5" x2="21" y2="33.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="25" y1="6" x2="25" y2="34" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="29" y1="16" x2="29" y2="24" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="33" y1="2.5" x2="33" y2="37.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="37" y1="9.5" x2="37" y2="30.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="41" y1="13" x2="41" y2="27" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="45" y1="12.5" x2="45" y2="27.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="49" y1="14" x2="49" y2="26" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="53" y1="12" x2="53" y2="28" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="57" y1="12.5" x2="57" y2="27.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="61" y1="14" x2="61" y2="26" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="65" y1="9" x2="65" y2="31" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="69" y1="3" x2="69" y2="37" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="73" y1="4.5" x2="73" y2="35.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="77" y1="3" x2="77" y2="37" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="81" y1="8.5" x2="81" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="85" y1="18.5" x2="85" y2="21.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="89" y1="8.5" x2="89" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="93" y1="3.5" x2="93" y2="36.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="97" y1="10" x2="97" y2="30" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="101" y1="1" x2="101" y2="39" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="105" y1="17.5" x2="105" y2="22.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="109" y1="8" x2="109" y2="32" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="113" y1="1.5" x2="113" y2="38.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="117" y1="18" x2="117" y2="22" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="121" y1="17" x2="121" y2="23" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="125" y1="2.5" x2="125" y2="37.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="129" y1="14" x2="129" y2="26" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="133" y1="4" x2="133" y2="36" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="137" y1="15.5" x2="137" y2="24.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="141" y1="12.5" x2="141" y2="27.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="145" y1="2" x2="145" y2="38" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="149" y1="16" x2="149" y2="24" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="153" y1="16.5" x2="153" y2="23.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="157" y1="10" x2="157" y2="30" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="161" y1="7" x2="161" y2="33" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="165" y1="14" x2="165" y2="26" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="169" y1="4.5" x2="169" y2="35.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="173" y1="4.5" x2="173" y2="35.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="177" y1="10.5" x2="177" y2="29.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="181" y1="2" x2="181" y2="38" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="185" y1="8.5" x2="185" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="189" y1="12" x2="189" y2="28" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="193" y1="12" x2="193" y2="28" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="197" y1="10.5" x2="197" y2="29.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="201" y1="4.5" x2="201" y2="35.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="205" y1="12" x2="205" y2="28" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="209" y1="13.5" x2="209" y2="26.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="213" y1="8" x2="213" y2="32" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="217" y1="12.5" x2="217" y2="27.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="221" y1="16" x2="221" y2="24" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="225" y1="14" x2="225" y2="26" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="229" y1="9" x2="229" y2="31" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="233" y1="11" x2="233" y2="29" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="237" y1="13" x2="237" y2="27" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="241" y1="8.5" x2="241" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="245" y1="8.5" x2="245" y2="31.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="249" y1="17" x2="249" y2="23" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="253" y1="18" x2="253" y2="22" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="257" y1="8" x2="257" y2="32" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="261" y1="15.5" x2="261" y2="24.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="265" y1="4" x2="265" y2="36" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="269" y1="9.5" x2="269" y2="30.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="273" y1="9.5" x2="273" y2="30.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="277" y1="7" x2="277" y2="33" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="281" y1="7" x2="281" y2="33" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="285" y1="10" x2="285" y2="30" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="289" y1="10.5" x2="289" y2="29.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <line x1="293" y1="14.5" x2="293" y2="25.5" stroke="#1DAEFF" strokeWidth="2" strokeLinecap="round" />
+        <rect x="-79.5" y="-119.5" width="399" height="255" rx="3.5" stroke="#161616" />
+      </g>
+      <defs>
+        <filter id="filter0_d_796_4918" x="-113" y="-136" width="466" height="322" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+          <feOffset dy="17" />
+          <feGaussianBlur stdDeviation="16.5" />
+          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_796_4918" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_796_4918" result="shape" />
+        </filter>
+      </defs>
+    </svg>
+
+  )
+}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { MsgCircle, OptionIcon, ShuffleIcon, VoiceMemo } from "../../../Svg";
-import Optional from "./Optional";
+import OptionalSection from "./OptionalSection";
+import CommentSection from "./CommentSection";
+import VoiceSection from "./VoiceSection";
 
 const ToolBar = (props) => {
     const [value, setValue] = useState(0);
@@ -13,7 +15,7 @@ const ToolBar = (props) => {
         return `tab text-[#5F5F5F]` + (value === val ? "border-b-2 tab-bordered border-cyan-500 text-white" : "");
     }
     return (
-        <div className="w-[24rem] bg-[#161616]  relative select-none">
+        <div className="w-[24rem] bg-[#161616]  select-none">
             <div className="tabs w-full border-b border-[#262626] pt-2">
                 <div className={tabClass(0)} onClick={handleClick(0)}>
                     <ShuffleIcon />
@@ -28,11 +30,11 @@ const ToolBar = (props) => {
                     <VoiceMemo />
                 </div>
             </div>
-            <div className="w-full min-h-[calc(100vh-154px)] overflow-y-auto">
+            <div className="w-full max-h-[calc(100vh-154px)] ">
                 {value === 0 && <div></div>}
-                {value === 1 && <Optional state={state} setState={setState} />}
-                {value === 2 && <div></div>}
-                {value === 3 && <div></div>}
+                {value === 1 && <OptionalSection state={state} setState={setState} />}
+                {value === 2 && <CommentSection />}
+                {value === 3 && <VoiceSection />}
             </div>
         </div>
     )

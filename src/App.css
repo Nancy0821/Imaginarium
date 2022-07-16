@@ -1,4 +1,5 @@
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
+  overflow: visible;
   display: none;
 }
 
