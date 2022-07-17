@@ -232,7 +232,7 @@ const CommentSection = () => {
             <div className="max-h-[calc(100vh-220px)] overflow-auto CustomScroll">
                 {
                     CommentData.map((comm, index) => (
-                        <div className="flex flex-col items-start p-4 gap-3 border-b border-[#262626]" key={index} onClick={() => setCommentOpen(!isCommentOpen)}>
+                        <div className="flex flex-col items-start p-4 gap-3 border-b border-[#262626]" key={index} onClick={() => { console.log(!isCommentOpen); setCommentOpen(!isCommentOpen) }}>
                             <div className="flex justify-between w-full">
                                 <label className="text-white uppercase text-xs tracking-[.21rem]">{comm.title}</label>
                                 <label className="text-white uppercase text-xs tracking-[.21rem]">{comm.comment.length}</label>
@@ -272,7 +272,7 @@ const CommentSection = () => {
                 {isCommentOpen && <CommentDialog setState={setCommentOpen} />}
 
             </div>
-        </div>
+        </div >
     )
 }
 

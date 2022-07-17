@@ -18,7 +18,19 @@ import {
   ShareIcon,
   HeadPhoneIcon,
   ScriptView,
-  OneWindow
+  OneWindow,
+  PageViewIcon,
+  ScriptViewIcon,
+  InfinityPageViewIcon,
+  SplitViewIcon,
+  OnePageViewIcon,
+  TimesIcon,
+  DownloadRIghtIcon,
+  SettingIcon,
+  MicOffIcon,
+  CollapseIcon,
+  AlertTriIcon,
+  TalkIcon
 } from "./Svg";
 
 import { AuthContext } from "../pages/context/AuthContext";
@@ -648,6 +660,11 @@ export const WorkSpaceNavbar = () => {
   }
 
   const [projectType, setProjectType] = React.useState(1);
+  const [isOpenScript, setOpenScript] = React.useState(false);
+  const [isOpenPage, setOpenPage] = React.useState(false);
+  const [isHeaderPhoneModal, setHeaderPhoneModal] = React.useState(false);
+
+
   return (
     <div className="flex w-full h-14 bg-neutral-840 select-none">
       <MainSubNavbar />
@@ -715,21 +732,146 @@ export const WorkSpaceNavbar = () => {
         </div>
         <div className="flex items-center flex-row justify-between">
           <div className="flex items-center gap-2">
-            <div className="avatar placeholder">
-              <div className="bg-[#2b2b2b] text-white rounded w-10">
-                <span className="text-xs"><ScriptView /></span>
+
+            <div className="dropdown w-full">
+              <div className="avatar placeholder" tabIndex="0" onClick={() => setOpenScript(true)}>
+                <div className="bg-[#2b2b2b] text-white rounded w-10 cursor-pointer">
+                  <span className="text-xs"><ScriptView /></span>
+                </div>
               </div>
+              {isOpenScript &&
+                <ul
+                  tabIndex="0"
+                  className="list-none p-0 drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] menu menu-compact dropdown-content mt-1 shadow bg-[#161616] border border-[#464646] w-40 max-h-fit rounded-[4px]"
+                >
+                  <button className="cursor-pointer flex flex-row items-center px-2 py-1.5 h-8 border-b border-[#464646] hover:bg-[#5D5D5D] gap-2">
+                    <InfinityPageViewIcon />
+
+                    <label className="cursor-pointer p-0 ml-1 text-[9px] font-extrabold text-white leading-5 tracking-[.21em]">
+                      SCRIPT VIEW
+                    </label>
+                  </button>
+                  <button className="cursor-pointer flex flex-row items-center px-2 py-1.5 h-8 border-b border-[#464646] hover:bg-[#5D5D5D] gap-2">
+                    <PageViewIcon />
+                    <label className="cursor-pointer p-0 ml-2 text-[9px] font-extrabold text-white leading-5 tracking-[.21em]">
+                      PAGE VIEW
+                    </label>
+                  </button>
+                  <button className="cursor-pointer flex flex-row items-center px-2 py-1.5 h-8 border-b border-[#464646] hover:bg-[#5D5D5D] gap-2">
+                    <ScriptViewIcon />
+
+                    <label className="cursor-pointer p-0 ml-2 text-[9px] font-extrabold text-white leading-5 tracking-[.21em]">
+                      INFINITY PAGE
+                    </label>
+                  </button>
+                </ul>
+              }
             </div>
-            <div className="avatar placeholder ">
-              <div className="bg-[#2b2b2b] text-white rounded w-10">
-                <span className="text-xs"><OneWindow /></span>
+
+
+            <div className="dropdown w-full">
+              <div className="avatar placeholder" tabIndex={0} onClick={() => setOpenPage(true)}>
+                <div className="bg-[#2b2b2b] text-white rounded w-10 cursor-pointer">
+                  <span className="text-xs"><OneWindow /></span>
+                </div>
               </div>
+              {isOpenPage &&
+                <ul
+                  tabIndex="0"
+                  className="list-none p-0 drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] menu menu-compact dropdown-content mt-1 shadow bg-[#161616] border border-[#464646] w-40 max-h-fit rounded-[4px]"
+                >
+                  <button className="cursor-pointer flex flex-row items-center px-2 py-1.5 h-8 border-b border-[#464646] hover:bg-[#5D5D5D] gap-2">
+                    <OnePageViewIcon />
+
+                    <label className="cursor-pointer p-0 ml-2 text-[9px] font-extrabold text-white leading-5 tracking-[.21em]">
+                      ONE SCREEN
+                    </label>
+                  </button>
+                  <button className="cursor-pointer flex flex-row items-center px-2 py-1.5 h-8 border-b border-[#464646] hover:bg-[#5D5D5D] gap-2">
+                    <SplitViewIcon />
+                    <label className="cursor-pointer p-0 ml-2 text-[9px] font-extrabold text-white leading-5 tracking-[.21em]">
+                      SPLIT SCREEN
+                    </label>
+                  </button>
+                </ul>
+              }
             </div>
-            <div className="avatar placeholder ml-10">
-              <div className="bg-[#2b2b2b] text-white rounded-full w-9">
-                <span className="text-xs"><HeadPhoneIcon /></span>
+
+
+            <div className="dropdown dropdown-left  w-full">
+              <div className="avatar placeholder ml-10 cursor-pointer" tabIndex={0} onClick={() => setHeaderPhoneModal(true)}>
+                <div className="bg-[#2b2b2b] text-white rounded-full w-9">
+                  <span className="text-xs"><HeadPhoneIcon /></span>
+                </div>
               </div>
+              {
+                isHeaderPhoneModal &&
+                <ul
+                  tabIndex="0"
+                  className="cursor-pointer drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] menu menu-compact  dropdown-content shadow bg-[#2B2B2B] border border-[#161616] rounded-[4px] w-[300px] mt-20 mr-6"
+                >
+                  <div className=" flex flex-row justify-between items-center py-[14px] w-full h-14 border-b border-[#161616]  pl-5">
+                    <div className="avatar placeholder">
+                      <div className="bg-[#2b2b2b] text-white rounded-full w-9">
+                        <img src="assets/img/dashboard/Avatar14.png" alt="Avatar" />
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-end gap-2">
+                      <button className="w-8 h-8 text-[#F39C12]">
+                        <AlertTriIcon />
+                      </button>
+                      <button className="rounded w-8 h-8 bg-[#DD5E5E] flex items-center justify-center">
+                        <MicOffIcon />
+                      </button>
+                      <button className="border border-[#404040] rounded w-8 h-8 flex items-center justify-center">
+                        <SettingIcon />
+                      </button>
+                      <button className="border border-[#404040] rounded w-8 h-8 flex items-center justify-center">
+                        <DownloadRIghtIcon />
+                      </button>
+
+                      <button
+                        className="mr-[10px] w-8 h-8 flex items-center justify-center rounded hover:bg-[#4F4F4F]"
+                      >
+                        <CollapseIcon />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 p-4 w-full">
+                    <div className="indicator">
+                      <div class="indicator-item indicator-bottom top-4 right-1">
+                        <TalkIcon />
+                      </div>
+                      <div className="avatar placeholder">
+                        <div className="bg-[#161616] text-white rounded-full w-9 ">
+                          <span className="text-xs">MW</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-base text-white">
+                      Margarett
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 px-4 py-2 w-full">
+                    <div className="indicator">
+                      <div class="indicator-item indicator-bottom top-4 right-1">
+                        <TalkIcon />
+                      </div>
+                      <div className="avatar placeholder">
+                        <div className="bg-[#161616] text-white rounded-full w-9 ">
+                          <img src="assets/img/dashboard/Avatar16.png" alt="Avatar" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-base text-white">
+                      William
+                    </div>
+                  </div>
+                </ul>
+              }
             </div>
+
+
             <div className="avatar placeholder">
               <div className="bg-[#2b2b2b] text-white rounded-full w-9">
                 <span className="text-xs">MW</span>
@@ -763,7 +905,7 @@ export const WorkSpaceNavbar = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }

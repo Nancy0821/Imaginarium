@@ -152,8 +152,6 @@ const VoiceSection = () => {
                     <div
                         tabIndex="0"
                         className="px-2 py-1.5 h-10 bg-[#161616] border border-[#404040] cursor-pointer rounded-[4px] w-full flex justify-between relative"
-                        name="projects"
-                        id="projects"
                         onClick={() => {
                             setOpen(true);
                         }}
